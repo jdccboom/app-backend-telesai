@@ -30,7 +30,7 @@ public abstract class AdapterOperationsReactive<E, D, I, R extends ReactiveCrudR
         return Mono.just(entity)
                 .map(this::toData)
                 .flatMap(this::saveData)
-                .thenReturn(entity);
+                .map(this::toEntity);
     }
 
     public Flux<E> saveAllEntities(Flux<E> entities) {

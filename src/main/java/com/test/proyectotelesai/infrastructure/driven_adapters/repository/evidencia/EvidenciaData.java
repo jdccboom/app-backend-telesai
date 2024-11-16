@@ -25,5 +25,8 @@ public class EvidenciaData {
     private String urlEvidencia;
 
     @Column( value = "tipo")
-    private String tipoEvidencia;
+    private String tipo;
+
+    @Column( value = "idestado")
+    private int idEstado;
 }

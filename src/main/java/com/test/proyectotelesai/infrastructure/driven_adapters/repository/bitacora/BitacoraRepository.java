@@ -22,9 +22,9 @@ public interface BitacoraRepository extends ReactiveCrudRepository<BitacoraData,
     @Query("""
         SELECT *
         FROM telesai_services_db.bitacora s
-        WHERE (s.idbitacora = :id OR '0' = :id)
-        AND (s.idsolicitud = :idsolicitud OR '0' = :idsolicitud);
+        WHERE (s.idbitacora = :id OR 0 = :id)
+        AND (s.idsolicitud = :idsolicitud OR 0 = :idsolicitud);
     """)
-    Flux<BitacoraData> getBitacoraByFilter(@Param("id") Integer idServicio, @Param("idsolicitud") Integer idsolicitud );
+    Flux<BitacoraData> getBitacoraByFilter(@Param("id") Integer idBitacora, @Param("idsolicitud") Integer idsolicitud );
 
 }

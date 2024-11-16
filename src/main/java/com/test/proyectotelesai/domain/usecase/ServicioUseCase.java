@@ -35,4 +35,16 @@ public class ServicioUseCase {
                 })
                 .onErrorResume(throwable -> Mono.error(new Exception("Error al actualizar el servicio")));
     }
+
+    public Mono<String> deleteServicio(Integer idServicio){
+        return servicioGateway.getServicio(idServicio)
+                .switchIfEmpty(Mono.error(
+                        new Exception("No existe el servicio con id: " + idServicio)))
+                .flatMap(servicioDTO -> {
+                    servicioDTO.setIdEstado(1);
+                    return servicioGateway.saveServicio(servicioDTO)
+                            .thenReturn("Servicio eliminado correctamente");
+                })
+                .onErrorResume(throwable -> Mono.error(new Exception("Error eliminar el servicio")));
+    }
 }

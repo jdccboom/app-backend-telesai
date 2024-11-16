@@ -17,8 +17,8 @@ public class ObservacionUseCase {
         return null;
     }
 
-    public Flux<ObservacionDTO> getObservacionByIdSolictud(Integer id){
-        return observacionGateway.getObservacionByIdSolictud(id,null);
+    public Flux<ObservacionDTO> getObservacionByIdSolictud(Integer id, Integer idsolicitud){
+        return observacionGateway.getObservacionByIdSolictud(id,idsolicitud);
     }
 
     Mono<ObservacionDTO> createObservacion(ObservacionDTO observacion){

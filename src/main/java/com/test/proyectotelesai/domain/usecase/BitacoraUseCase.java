@@ -11,7 +11,7 @@ public class BitacoraUseCase {
 
     private final BitacoraGateway bitacoraGateway;
 
-    public Flux<BitacoraDTO> getBitacoraByIdSolicitud(Integer id) {
-        return bitacoraGateway.getBitacoraByIdSolicitud(id);
+    public Flux<BitacoraDTO> getBitacoraByIdSolicitud(Integer id, Integer idsolicitud) {
+        return bitacoraGateway.getBitacoraByIdSolicitud(id,idsolicitud);
     }
 }

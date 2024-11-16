@@ -50,6 +50,11 @@ public class SolicitudRepositoryAdapter
     }
 
     @Override
+    public Mono<InfoActaData> getInfoActaData(Integer id) {
+        return repository.getInfoActaById(id);
+    }
+
+    @Override
     public Flux<SolicitudResult> getSolicitudInfoByIdCliente(Integer id) {
         return repository.getSolicitudInfoByIdCliente(id);
     }

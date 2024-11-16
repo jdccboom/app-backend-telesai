@@ -22,8 +22,8 @@ public class BitacoraRepositoryAdapter
     }
 
     @Override
-    public Flux<BitacoraDTO> getBitacoraByIdSolicitud(Integer id) {
-        return repository.getBitacoraByFilter(0,id)
+    public Flux<BitacoraDTO> getBitacoraByIdSolicitud(Integer id,Integer idsolicitud) {
+        return repository.getBitacoraByFilter(id,idsolicitud)
                 .map(bitacoraData -> mapper.map(bitacoraData, BitacoraDTO.class));
     }
 

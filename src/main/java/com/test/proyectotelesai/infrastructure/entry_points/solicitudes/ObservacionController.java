@@ -22,6 +22,6 @@ public class ObservacionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getObservacionById(@PathVariable("id") int id) {
-        return ResponseEntity.ok().body(observacionUseCase.getObservacionByIdSolictud(id));
+        return ResponseEntity.ok().body(observacionUseCase.getObservacionByIdSolictud(id,0));
     }
 }

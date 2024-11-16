@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 public interface ObservacionGateway {
     Flux<ObservacionDTO> getAllObservaciones();
 
-    Flux<ObservacionDTO> getObservacionByIdSolictud(Integer id, String descripcion);
+    Flux<ObservacionDTO> getObservacionByIdSolictud(Integer id, Integer idsolicitud);
 
     Mono<ObservacionDTO> saveObservacion(ObservacionDTO observacion);
 }

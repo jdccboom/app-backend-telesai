@@ -21,10 +21,10 @@ public interface ObservacionRepository extends ReactiveCrudRepository<Observacio
 
     @Query("""
         SELECT *
-        FROM telesai_services_db.observacion s
-        WHERE (s.idsolicitud = :tipo OR '0' = :id)
-        AND (s.idsolicitud = :idsolicitud :idsolicitud is null);
+        FROM telesai_services_db.observacion o
+        WHERE (o.idobservacion = :id OR 0 = :id)
+        AND (o.idobservacion = :idsolicitud OR :idsolicitud = 0);
     """)
-    Flux<ObservacionData> getObservacionByFilter(@Param("id") Integer idServicio, @Param("descripcion") String descripcion);
+    Flux<ObservacionData> getObservacionByFilter(@Param("id") Integer idObservacion, @Param("idsolicitud") Integer idSolicitud);
 
 }

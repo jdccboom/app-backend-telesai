@@ -29,4 +29,5 @@ public class UsuarioRepositoryAdapter
     public Mono<UsuarioDTO> findByEmailOrUsername(String email, String username) {
         return null;
     }
+
 }

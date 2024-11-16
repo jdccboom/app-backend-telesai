@@ -9,4 +9,5 @@ public interface EvidenciaGateway {
     Mono<EvidenciaDTO> getEvidenciaByTipo(String tipo, Integer id);
 
     Mono<EvidenciaDTO> saveEvidencia(EvidenciaDTO evidenciaDTO);
+
 }

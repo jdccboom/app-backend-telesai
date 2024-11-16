@@ -59,8 +59,8 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public EvidenciaUseCase evidenciaUseCase(EvidenciaGateway evidenciaGateway){
-        return new EvidenciaUseCase(evidenciaGateway);
+    public EvidenciaUseCase evidenciaUseCase(EvidenciaGateway evidenciaGateway,ClodinaryUseCase clodinaryUseCase){
+        return new EvidenciaUseCase(evidenciaGateway, clodinaryUseCase);
     }
 
     @Bean

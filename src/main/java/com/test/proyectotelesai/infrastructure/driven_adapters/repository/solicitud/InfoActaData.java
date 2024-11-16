@@ -10,16 +10,16 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SolicitudResult {
+public class InfoActaData {
 
     @Column( value = "idsolicitud")
     private Integer idSolicitud;
 
-    @Column( value = "idCliente")
-    private String idCliente;
-
     @Column( value = "Cliente")
-    private String clienteNombre;
+    private String cliente;
+
+    @Column( value = "email")
+    private String email;
 
     @Column( value = "Ubicacion")
     private String ubicacion;

@@ -1,5 +1,6 @@
 package com.test.proyectotelesai.infrastructure.entry_points.solicitudes;
 
+import com.test.proyectotelesai.domain.model.solicitud.SolicitudDTO;
 import com.test.proyectotelesai.domain.usecase.ActaUseCase;
 import com.test.proyectotelesai.domain.usecase.SolicitudUseCase;
 import com.test.proyectotelesai.infrastructure.helpers.utils.JWTUtils;
@@ -30,8 +31,13 @@ public class SolicitudController {
         return ResponseEntity.ok().body(solicitudUseCase.getSolicitudInfoById(id));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/acta/{id}")
     public ResponseEntity<Object> genararActa(@PathVariable("id") int id) {
         return ResponseEntity.ok().body(actaUseCase.generarActa(id));
+    }
+
+    @PostMapping("/crear")
+    public ResponseEntity<Object> saveServicio(@RequestBody SolicitudDTO solicitudDTO) {
+        return ResponseEntity.ok().body(solicitudUseCase.saveSolicitud(solicitudDTO));
     }
 }

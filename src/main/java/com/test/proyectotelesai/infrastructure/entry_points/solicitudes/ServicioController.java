@@ -1,13 +1,12 @@
 package com.test.proyectotelesai.infrastructure.entry_points.solicitudes;
 
+import com.test.proyectotelesai.domain.model.servicio.ServicioDTO;
+import com.test.proyectotelesai.domain.model.solicitud.SolicitudDTO;
 import com.test.proyectotelesai.domain.usecase.ServicioUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +23,15 @@ public class ServicioController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getServicioById(@PathVariable("id") int id) {
         return ResponseEntity.ok().body(servicioUseCase.getServicioById(id));
+    }
+
+    @PostMapping("/crear")
+    public ResponseEntity<Object> saveServicio(@RequestBody ServicioDTO servicio) {
+        return ResponseEntity.ok().body(servicioUseCase.saveServicio(servicio));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> deleteServicio(@PathVariable("id") int id) {
+        return ResponseEntity.ok().body(servicioUseCase.deleteServicio(id));
     }
 }

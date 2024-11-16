@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FileParams{
-    @NotBlank
+
     private String id;
 
     private String url;

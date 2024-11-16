@@ -37,17 +37,45 @@ public interface SolicitudRepository extends ReactiveCrudRepository<SolicitudDat
         ser.nombreServicio AS Servicio,
         op.nombreCompleto AS Operario,
         sup.nombreCompleto AS Supervisor,
-        sol.descripcion AS Descripcion
+        sol.descripcion AS Descripcion,
+        est.nombreestado AS Estado
+        
     FROM telesai_services_db.solicitud sol
              JOIN telesai_services_db.Usuario u ON sol.idCliente = u.idUsuario
              JOIN telesai_services_db.Ubicacion ub ON sol.idUbicacion = ub.idUbicacion
              JOIN telesai_services_db.Servicio ser ON sol.idServicio = ser.idServicio
              JOIN telesai_services_db.Usuario op ON sol.idOperario = op.idUsuario
              JOIN telesai_services_db.Usuario sup ON sol.idSupervisor = sup.idUsuario
+             JOIN telesai_services_db.estado est ON sol.idEstado = est.idEstado
     WHERE sol.idSolicitud = :solicitudId
     LIMIT 1;
 """)
     Mono<SolicitudResult> getSolicitudInfoById( @Param("solicitudId") Integer solicitudId);
+
+    @Query("""
+    SELECT
+        sol.idsolicitud,
+        u.nombreCompleto AS Cliente,
+        u.email AS Email,
+        ub.nombreUbicacion AS Ubicacion,
+        sol.fechaSolicitud AS Fecha_Solicitud,
+        ser.nombreServicio AS Servicio,
+        op.nombreCompleto AS Operario,
+        sup.nombreCompleto AS Supervisor,
+        sol.descripcion AS Descripcion,
+        est.nombreestado AS Estado
+        
+    FROM telesai_services_db.solicitud sol
+             JOIN telesai_services_db.Usuario u ON sol.idCliente = u.idUsuario
+             JOIN telesai_services_db.Ubicacion ub ON sol.idUbicacion = ub.idUbicacion
+             JOIN telesai_services_db.Servicio ser ON sol.idServicio = ser.idServicio
+             JOIN telesai_services_db.Usuario op ON sol.idOperario = op.idUsuario
+             JOIN telesai_services_db.Usuario sup ON sol.idSupervisor = sup.idUsuario
+             JOIN telesai_services_db.estado est ON sol.idEstado = est.idEstado
+    WHERE sol.idSolicitud = :solicitudId
+    LIMIT 1;
+""")
+    Mono<InfoActaData> getInfoActaById( @Param("solicitudId") Integer solicitudId);
 
     @Query("""
     SELECT

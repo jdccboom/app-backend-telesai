@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class CloudinaryGatewayAdapter implements CloudinaryGateway {
@@ -29,30 +31,28 @@ public class CloudinaryGatewayAdapter implements CloudinaryGateway {
     public Mono<Map> save(FilePart image) {
         return convert(image)
                 .flatMap(file -> {
-                    // Crear el mapa de parámetros para la configuración de la subida
                     Map<String, Object> uploadOptions = new HashMap<>();
-                    uploadOptions.put("folder", "telesaiEvidencias");//telesaiProyecto
+                    uploadOptions.put("folder", "telesaiEvidencias");
                     uploadOptions.put("resource_type", "auto");
-                    // Subir la imagen a Cloudinary
                     return Mono.fromCallable(() -> cloudinary.uploader().upload(file, uploadOptions));
                 });
     }
 
     @Override
     public Mono<Map> savePdf(File file) {
-        // Crear el mapa de parámetros para la configuración de la subida
+
         Map<String, Object> uploadOptions = new HashMap<>();
-        uploadOptions.put("folder", "telesaiEvidencias");//telesaiProyecto
+        uploadOptions.put("folder", "telesaiEvidencias");
         uploadOptions.put("resource_type", "auto");
-        // Subir la imagen a Cloudinary
+
         return Mono.fromCallable(() -> cloudinary.uploader().upload(file, uploadOptions));
     }
 
     @Override
-    public Mono<Map> delete(String idImage) {
+    public Mono<Map> delete(String url) {
         return Mono.fromCallable(() ->
-                cloudinary.uploader().destroy(idImage, ObjectUtils.emptyMap())
-        ); // Llama al método de eliminación de Cloudinary
+                cloudinary.uploader().destroy(extractIdFromUrl(url), ObjectUtils.emptyMap())
+        );
     }
 
     private Mono<File> convert(FilePart image) {
@@ -65,4 +65,21 @@ public class CloudinaryGatewayAdapter implements CloudinaryGateway {
             }
         });
     }
+
+    private String extractIdFromUrl(String url) {
+
+        String regex = "/image/upload/v\\d+/([^/]+(?:/[^/]+)*)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(url);
+
+        if (matcher.find()) {
+            return matcher.group(1).replaceAll("\\.[a-zA-Z0-9]+$", "");
+        }
+
+        throw new IllegalArgumentException("URL inválida, no se pudo extraer el ID: " + url);
+    }
+
+
+
+
 }

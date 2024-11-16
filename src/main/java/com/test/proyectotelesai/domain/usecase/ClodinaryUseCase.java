@@ -23,6 +23,6 @@ public class ClodinaryUseCase {
     }
 
     public Mono<Map> delete(FileParams image) {
-        return cloudinaryGateway.delete(image.getId());
+        return cloudinaryGateway.delete(image.getUrl());
     }
 }
