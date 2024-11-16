@@ -1,6 +1,7 @@
 package com.test.proyectotelesai.domain.model.solicitud.gateway;
 
 import com.test.proyectotelesai.domain.model.solicitud.SolicitudDTO;
+import com.test.proyectotelesai.infrastructure.driven_adapters.repository.solicitud.SolicitudResult;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -9,4 +10,7 @@ public interface SolicitudGateway {
     Flux<SolicitudDTO> getAllSolicituds();
     Mono<SolicitudDTO> saveSolicitud(SolicitudDTO dto);
     Mono<Boolean> existSolicitud(Integer id);
+
+    Mono<SolicitudResult> getSolicitudInfoById(Integer id);
+    Flux<SolicitudResult> getSolicitudInfoByIdCliente(Integer id);
 }

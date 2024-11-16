@@ -44,4 +44,13 @@ public class SolicitudRepositoryAdapter
         return save(dto);
     }
 
+    @Override
+    public Mono<SolicitudResult> getSolicitudInfoById(Integer id) {
+        return repository.getSolicitudInfoById(id);
+    }
+
+    @Override
+    public Flux<SolicitudResult> getSolicitudInfoByIdCliente(Integer id) {
+        return repository.getSolicitudInfoByIdCliente(id);
+    }
 }

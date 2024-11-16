@@ -16,4 +16,6 @@ public class EvidenciaDTO {
     private int idSolicitud;
 
     private String urlEvidencia;
+
+    private String tipo;
 }

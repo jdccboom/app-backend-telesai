@@ -26,6 +26,47 @@ public interface SolicitudRepository extends ReactiveCrudRepository<SolicitudDat
             """)
     Mono<SolicitudData> getSolicitudByFilter(
             @Param("id") Integer idServicio,
-            @Param("idCliente") Integer idCliente );
+            @Param("idCliente") Integer idCliente);
+
+    @Query("""
+    SELECT
+        sol.idsolicitud,
+        u.nombreCompleto AS Cliente,
+        ub.nombreUbicacion AS Ubicacion,
+        sol.fechaSolicitud AS Fecha_Solicitud,
+        ser.nombreServicio AS Servicio,
+        op.nombreCompleto AS Operario,
+        sup.nombreCompleto AS Supervisor,
+        sol.descripcion AS Descripcion
+    FROM telesai_services_db.solicitud sol
+             JOIN telesai_services_db.Usuario u ON sol.idCliente = u.idUsuario
+             JOIN telesai_services_db.Ubicacion ub ON sol.idUbicacion = ub.idUbicacion
+             JOIN telesai_services_db.Servicio ser ON sol.idServicio = ser.idServicio
+             JOIN telesai_services_db.Usuario op ON sol.idOperario = op.idUsuario
+             JOIN telesai_services_db.Usuario sup ON sol.idSupervisor = sup.idUsuario
+    WHERE sol.idSolicitud = :solicitudId
+    LIMIT 1;
+""")
+    Mono<SolicitudResult> getSolicitudInfoById( @Param("solicitudId") Integer solicitudId);
+
+    @Query("""
+    SELECT
+        sol.idsolicitud,
+        u.nombreCompleto AS Cliente,
+        ub.nombreUbicacion AS Ubicacion,
+        sol.fechaSolicitud AS Fecha_Solicitud,
+        ser.nombreServicio AS Servicio,
+        op.nombreCompleto AS Operario,
+        sup.nombreCompleto AS Supervisor,
+        sol.descripcion AS Descripcion
+    FROM telesai_services_db.solicitud sol
+             JOIN telesai_services_db.Usuario u ON sol.idCliente = u.idUsuario
+             JOIN telesai_services_db.Ubicacion ub ON sol.idUbicacion = ub.idUbicacion
+             JOIN telesai_services_db.Servicio ser ON sol.idServicio = ser.idServicio
+             JOIN telesai_services_db.Usuario op ON sol.idOperario = op.idUsuario
+             JOIN telesai_services_db.Usuario sup ON sol.idSupervisor = sup.idUsuario
+    WHERE (:id IS null OR sol.idCliente = :id OR sol.idOperario = :id OR sol.idSupervisor = :id);
+""")
+    Flux<SolicitudResult> getSolicitudInfoByIdCliente( @Param("id") Integer id);
 
 }

@@ -2,6 +2,7 @@ package com.test.proyectotelesai.domain.usecase;
 
 import com.test.proyectotelesai.domain.model.solicitud.SolicitudDTO;
 import com.test.proyectotelesai.domain.model.solicitud.gateway.SolicitudGateway;
+import com.test.proyectotelesai.infrastructure.driven_adapters.repository.solicitud.SolicitudResult;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,6 +18,14 @@ public class SolicitudUseCase {
 
     public Flux<SolicitudDTO> getSolicitudAll() {
         return solicitudGateway.getAllSolicituds();
+    }
+
+    public Mono<SolicitudResult> getSolicitudInfoById(Integer id) {
+        return solicitudGateway.getSolicitudInfoById(id);
+    }
+
+    public Flux<SolicitudResult> getSolicitudInfoByIdCliente(Integer id) {
+        return solicitudGateway.getSolicitudInfoByIdCliente(id);
     }
 
     public Mono<SolicitudDTO> saveSolicitud(SolicitudDTO solicitudDTO){

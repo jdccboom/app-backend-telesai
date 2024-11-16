@@ -5,5 +5,8 @@ import reactor.core.publisher.Mono;
 
 public interface EvidenciaGateway {
     Mono<EvidenciaDTO> getEvidenciaById(Integer id);
+
+    Mono<EvidenciaDTO> getEvidenciaByTipo(String tipo, Integer id);
+
     Mono<EvidenciaDTO> saveEvidencia(EvidenciaDTO evidenciaDTO);
 }

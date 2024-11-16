@@ -13,12 +13,12 @@ public class ObservacionUseCase {
 
     private final ObservacionGateway observacionGateway;
 
-    Flux<ObservacionDTO> getAllObservaciones() {
+    public  Flux<ObservacionDTO> getAllObservaciones() {
         return null;
     }
 
-    Mono<ObservacionDTO> getObservacionByIdSolictud(Integer id){
-        return observacionGateway.getObservacionByIdSolictud(id);
+    public Flux<ObservacionDTO> getObservacionByIdSolictud(Integer id){
+        return observacionGateway.getObservacionByIdSolictud(id,null);
     }
 
     Mono<ObservacionDTO> createObservacion(ObservacionDTO observacion){
@@ -28,4 +28,5 @@ public class ObservacionUseCase {
     Mono<ObservacionDTO> updateObservacion(ObservacionDTO observacion){
         return null;
     }
+
 }

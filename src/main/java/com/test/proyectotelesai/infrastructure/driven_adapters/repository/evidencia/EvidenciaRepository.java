@@ -15,16 +15,16 @@ public interface EvidenciaRepository extends ReactiveCrudRepository<EvidenciaDat
 
     @Query("""
             SELECT *
-            FROM telesai_services_db.servicio;
+            FROM telesai_services_db.evidencia;
             """)
     Flux<EvidenciaData> findAllEvidencia();
 
     @Query("""
         SELECT *
         FROM telesai_services_db.evidencia s
-        WHERE (s.idevidencia = :id OR '0' = :id)
-        AND (s.idsolicitud = :nombre OR '0' = :nombre);
+        WHERE (s.tipo = :tipo OR '0' = :id)
+        AND (s.idsolicitud = :idsolicitud OR '0' = :idsolicitud);
     """)
-    Mono<EvidenciaData> getEvidenciaByFilter(@Param("id") Integer idServicio, @Param("nombre") String nombreServicio );
+    Mono<EvidenciaData> getEvidenciaByFilter(@Param("tipo") String tipo, @Param("idsolicitud") Integer idsolicitud );
 
 }

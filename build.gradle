@@ -32,9 +32,10 @@ dependencies {
     implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'com.itextpdf:itext7-core:8.0.5'
 
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-    implementation 'com.cloudinary:cloudinary-http44:1.27.0'
+    implementation 'com.cloudinary:cloudinary-http5:2.0.0'
 
     implementation 'org.springframework.security:spring-security-crypto:6.2.2'
     implementation 'io.jsonwebtoken:jjwt-api:0.12.5'

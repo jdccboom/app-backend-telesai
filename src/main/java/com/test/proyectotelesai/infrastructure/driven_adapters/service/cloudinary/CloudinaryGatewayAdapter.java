@@ -1,7 +1,6 @@
 package com.test.proyectotelesai.infrastructure.driven_adapters.service.cloudinary;
 
 import com.cloudinary.Cloudinary;
-import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -10,17 +9,15 @@ import reactor.core.publisher.Mono;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
-public class CloudinaryServiceAdapter implements CloudinaryService {
+public class CloudinaryGatewayAdapter implements CloudinaryGateway {
 
     private final Cloudinary cloudinary;
 
-    public CloudinaryServiceAdapter(Environment env) {
+    public CloudinaryGatewayAdapter(Environment env) {
         Map<String, String> config = new HashMap<>();
         config.put("cloud_name", env.getProperty("cloud_name"));
         config.put("api_key", env.getProperty("api_key"));
@@ -39,6 +36,16 @@ public class CloudinaryServiceAdapter implements CloudinaryService {
                     // Subir la imagen a Cloudinary
                     return Mono.fromCallable(() -> cloudinary.uploader().upload(file, uploadOptions));
                 });
+    }
+
+    @Override
+    public Mono<Map> savePdf(File file) {
+        // Crear el mapa de parámetros para la configuración de la subida
+        Map<String, Object> uploadOptions = new HashMap<>();
+        uploadOptions.put("folder", "telesaiEvidencias");//telesaiProyecto
+        uploadOptions.put("resource_type", "auto");
+        // Subir la imagen a Cloudinary
+        return Mono.fromCallable(() -> cloudinary.uploader().upload(file, uploadOptions));
     }
 
     @Override

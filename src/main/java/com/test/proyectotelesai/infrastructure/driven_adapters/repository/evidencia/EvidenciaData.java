@@ -18,7 +18,12 @@ public class EvidenciaData {
     @Column( value = "idevidencia")
     private int idEvidencia;
 
+    @Column( value = "idsolicitud")
     private int idSolicitud;
 
+    @Column( value = "urlevidencia")
     private String urlEvidencia;
+
+    @Column( value = "tipo")
+    private String tipoEvidencia;
 }

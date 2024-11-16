@@ -24,6 +24,7 @@ import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,7 +50,7 @@ public class FiltroToken implements WebFilter {
 
     private final Environment env;
 
-    private  String rol;
+    private  List<String> rol;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
@@ -96,9 +97,9 @@ public class FiltroToken implements WebFilter {
         try {
             // Validación de permisos según la URI y el rol del token
             if (requestURI.startsWith("/api/v1")) {
-                error = validarRol("Cliente");
+                error = validarRol(List.of("Cliente","Supervisor","Operario"));
             } else if (requestURI.startsWith("/api/moderator")) {
-                error = validarRol( "Admin");
+                error = validarRol( List.of("Admin"));
             } else {
                 error = false;
             }
@@ -141,7 +142,7 @@ public class FiltroToken implements WebFilter {
                 .collectList()
                 .flatMap(listRol -> {
 
-                    if(!listRol.contains(rol))
+                    if(!new HashSet<>(rol).containsAll(listRol))
                         return crearRespuestaError(
                                 "No tiene permisos para acceder a este recurso",
                                         HttpStatus.FORBIDDEN, exchange
@@ -157,16 +158,16 @@ public class FiltroToken implements WebFilter {
         exchange.getResponse().getHeaders().add("Access-Control-Allow-Headers", "Origin, Accept, Content-Type, Authorization");
     }
 
-    private boolean validarRol(String rolEsperado) {
+    private boolean validarRol(List<String> rolEsperado) {
         Jws<Claims> jws = jwtUtils.parseJwt(token);
         @SuppressWarnings("unchecked")
         List<String> rolesActuales = (List<String>) jws.getPayload().get("rol");
 
-        if (!rolesActuales.contains(rolEsperado)) {
+        if (rolesActuales.stream().noneMatch(rolEsperado::contains)) {
             return true;
         }
 
-        rol= rolEsperado;
+        rol= rolesActuales;
         return false;
     }
 
