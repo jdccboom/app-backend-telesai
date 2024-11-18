@@ -53,6 +53,7 @@ public interface SolicitudRepository extends ReactiveCrudRepository<SolicitudDat
              JOIN telesai_services_db.Usuario sup ON sol.idSupervisor = sup.idUsuario
              JOIN telesai_services_db.estado est ON sol.idEstado = est.idEstado
     WHERE sol.idSolicitud = :solicitudId
+    AND sol.idEstado !=1
     LIMIT 1;
 """)
     Mono<SolicitudResult> getSolicitudInfoById(@Param("solicitudId") Integer solicitudId);
@@ -78,6 +79,7 @@ public interface SolicitudRepository extends ReactiveCrudRepository<SolicitudDat
              JOIN telesai_services_db.Usuario sup ON sol.idSupervisor = sup.idUsuario
              JOIN telesai_services_db.estado est ON sol.idEstado = est.idEstado
     WHERE sol.idSolicitud = :solicitudId
+    AND sol.idEstado !=1
     LIMIT 1;
 """)
     Mono<InfoActaData> getInfoActaById( @Param("solicitudId") Integer solicitudId);
@@ -101,7 +103,8 @@ public interface SolicitudRepository extends ReactiveCrudRepository<SolicitudDat
              JOIN telesai_services_db.Usuario op ON sol.idOperario = op.idUsuario
              JOIN telesai_services_db.Usuario sup ON sol.idSupervisor = sup.idUsuario
              JOIN telesai_services_db.estado est ON sol.idEstado = est.idEstado
-    WHERE (:id IS null OR sol.idCliente = :id OR sol.idOperario = :id OR sol.idSupervisor = :id);
+    WHERE (:id IS null OR sol.idCliente = :id OR sol.idOperario = :id OR sol.idSupervisor = :id)
+    AND sol.idEstado !=1;
 """)
     Flux<SolicitudResult> getSolicitudInfoByIdCliente( @Param("id") Integer id);
 
