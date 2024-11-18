@@ -1,0 +1,12 @@
+# Exported from Render on 2024-11-18T01:10:28Z
+databases:
+  - name: serverdb-telesai
+    databaseName: serverdb_telesai
+    user: admin_telesai
+    plan: free
+    region: ohio
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
+    postgresMajorVersion: "16"
+version: "1"
