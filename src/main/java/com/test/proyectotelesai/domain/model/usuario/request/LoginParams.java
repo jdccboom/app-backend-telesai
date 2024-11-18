@@ -1,4 +1,4 @@
-package com.test.proyectotelesai.domain.model.usuario.resquet;
+package com.test.proyectotelesai.domain.model.usuario.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

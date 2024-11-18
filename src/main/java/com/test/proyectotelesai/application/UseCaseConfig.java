@@ -1,11 +1,16 @@
 package com.test.proyectotelesai.application;
 
+import com.test.proyectotelesai.domain.model.bitacora.gateway.BitacoraGateway;
+import com.test.proyectotelesai.domain.model.evidencia.gateway.EvidenciaGateway;
 import com.test.proyectotelesai.domain.model.observacion.gateway.ObservacionGateway;
 import com.test.proyectotelesai.domain.model.rol.gateway.RolGateway;
 import com.test.proyectotelesai.domain.model.servicio.gateway.ServicioGateway;
 import com.test.proyectotelesai.domain.model.solicitud.gateway.SolicitudGateway;
 import com.test.proyectotelesai.domain.model.usuario.gateway.UsuarioGateway;
 import com.test.proyectotelesai.domain.usecase.*;
+import com.test.proyectotelesai.infrastructure.driven_adapters.service.cloudinary.CloudinaryGateway;
+import com.test.proyectotelesai.infrastructure.driven_adapters.service.mail.MailGateway;
+import com.test.proyectotelesai.infrastructure.driven_adapters.service.pdf.PdfGetaway;
 import com.test.proyectotelesai.infrastructure.helpers.utils.JWTUtils;
 import org.reactivecommons.utils.ObjectMapper;
 import org.reactivecommons.utils.ObjectMapperImp;
@@ -34,12 +39,45 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public SolicitudUseCase solicitudUseCase(SolicitudGateway solicitudGateway) {
-        return new SolicitudUseCase(solicitudGateway);
+    public SolicitudUseCase solicitudUseCase(SolicitudGateway solicitudGateway,
+                                             RolUseCase rolUseCase,
+                                             UsuarioUseCase usuarioUseCase) {
+        return new SolicitudUseCase(solicitudGateway,rolUseCase,usuarioUseCase);
     }
 
     @Bean
-    public ObservacionUseCase observacionUseCase(ObservacionGateway observacionGateway) {
-        return new ObservacionUseCase(observacionGateway);
+    public ObservacionUseCase observacionUseCase(ObservacionGateway observacionGateway,SolicitudUseCase solicitudUseCase) {
+        return new ObservacionUseCase(observacionGateway,solicitudUseCase);
     }
+
+    @Bean
+    public ClodinaryUseCase clodinaryUseCase(CloudinaryGateway cloudinaryGateway){
+        return new ClodinaryUseCase(cloudinaryGateway);
+    }
+
+    @Bean
+    public MailUseCase mailUseCase(MailGateway mailGateway){
+        return new MailUseCase(mailGateway);
+    }
+
+    @Bean
+    public EvidenciaUseCase evidenciaUseCase(EvidenciaGateway evidenciaGateway,ClodinaryUseCase clodinaryUseCase){
+        return new EvidenciaUseCase(evidenciaGateway, clodinaryUseCase);
+    }
+
+    @Bean
+    public PdfUseCase pdfUseCase(PdfGetaway pdfGetaway){
+        return new PdfUseCase(pdfGetaway);
+    }
+
+    @Bean
+    public BitacoraUseCase bitacoraUseCase(BitacoraGateway bitacoraGateway){
+        return new BitacoraUseCase(bitacoraGateway);
+    }
+
+    @Bean
+    public UsuarioUseCase usuarioUseCase(UsuarioGateway usuarioGateway, RolUseCase rolUseCase){
+        return new UsuarioUseCase(usuarioGateway,rolUseCase);
+    }
+
 }

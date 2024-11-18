@@ -27,6 +27,12 @@ public class EvidenciaRepositoryAdapter
     }
 
     @Override
+    public Mono<EvidenciaDTO> getEvidenciaByTipo(String tipo,Integer id) {
+        return repository.getEvidenciaByFilter(tipo,id)
+                .map(evidenciaData -> mapper.map(evidenciaData, EvidenciaDTO.class));
+    }
+
+    @Override
     public Mono<EvidenciaDTO> saveEvidencia(EvidenciaDTO evidenciaDTO) {
         return save(evidenciaDTO);
     }

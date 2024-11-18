@@ -11,20 +11,22 @@ import reactor.core.publisher.Mono;
 public interface EvidenciaRepository extends ReactiveCrudRepository<EvidenciaData, Integer>, ReactiveQueryByExampleExecutor<EvidenciaData> {
 
 
-    Mono<EvidenciaData> findByIdEvidencia(@Param("id") Integer idServicio);
-
     @Query("""
             SELECT *
-            FROM telesai_services_db.servicio;
+            FROM telesai_services_db.evidencia
+            WHERE idestado != 1
+            AND idevidencia = :id;
             """)
-    Flux<EvidenciaData> findAllEvidencia();
+    Mono<EvidenciaData> findByIdEvidencia(@Param("id") Integer idEvidencia);
 
     @Query("""
         SELECT *
         FROM telesai_services_db.evidencia s
-        WHERE (s.idevidencia = :id OR '0' = :id)
-        AND (s.idsolicitud = :nombre OR '0' = :nombre);
+        WHERE (s.tipo = :tipo OR :tipo is null )
+        AND (s.idsolicitud = :idsolicitud OR 0 = :idsolicitud)
+        AND s.idestado != 1
+        LIMIT 1;
     """)
-    Mono<EvidenciaData> getEvidenciaByFilter(@Param("id") Integer idServicio, @Param("nombre") String nombreServicio );
+    Mono<EvidenciaData> getEvidenciaByFilter(@Param("tipo") String tipo, @Param("idsolicitud") Integer idsolicitud );
 
 }

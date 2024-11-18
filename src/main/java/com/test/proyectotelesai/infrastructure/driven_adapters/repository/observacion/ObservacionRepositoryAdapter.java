@@ -28,13 +28,19 @@ public class ObservacionRepositoryAdapter
     }
 
     @Override
-    public Mono<ObservacionDTO> getObservacionByIdSolictud(Integer id) {
-        return repository.findByIdObservacion(id)
+    public Flux<ObservacionDTO> getObservacionByIdSolictud(Integer id,Integer idsolicitud) {
+        return repository.getObservacionByFilter(id,idsolicitud)
                 .map(observacionData -> mapper.map(observacionData, ObservacionDTO.class));
     }
 
     @Override
     public Mono<ObservacionDTO> saveObservacion(ObservacionDTO observacion) {
         return save(observacion);
+    }
+
+    @Override
+    public Mono<ObservacionDTO> getObservacionById(Integer id) {
+        return repository.findByIdObservacion(id)
+                .map(observacionData -> mapper.map(observacionData, ObservacionDTO.class));
     }
 }

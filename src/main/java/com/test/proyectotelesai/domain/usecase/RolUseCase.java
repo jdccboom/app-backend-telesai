@@ -19,4 +19,10 @@ public class RolUseCase {
         return rolGateway.getRolById(id);
     }
 
+    public Mono<String> asignarRol(Integer idUsuario, Integer idRol) {
+        return rolGateway.updateUsuarioRol(idUsuario,idRol)
+                .thenReturn("Rol asignado")
+                .onErrorResume(throwable -> Mono.error(new Exception("Error al asignar rol")));
+    }
+
 }

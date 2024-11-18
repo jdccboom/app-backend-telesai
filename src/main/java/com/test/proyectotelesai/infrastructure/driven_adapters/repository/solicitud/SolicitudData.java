@@ -22,28 +22,28 @@ public class SolicitudData {
     private Integer idSolicitud;
 
     @Column( value = "idcliente")
-    private int idCliente;
+    private Integer idCliente;
 
     @Column( value = "idubicacion")
-    private int idUbicacion;
+    private Integer idUbicacion;
 
     @Column( value = "idservicio")
-    private int idServicio;
+    private Integer idServicio;
 
     @Column( value = "idoperario")
-    private int idOperario;
+    private Integer idOperario;
 
     @Column( value = "idsupervisor")
-    private int idSupervisor;
+    private Integer idSupervisor;
 
     @Column( value = "idestado")
-    private int idEstado;
+    private Integer idEstado;
 
     @Column( value = "fechasolicitud")
     private LocalDate fechaSolicitud;
 
     @Column( value = "fecharevision")
-    private LocalDateTime fechaRevision;
+    private LocalDate fechaRevision;
 
     @Column( value = "fechavalidacion")
     private LocalDateTime fechaValidacion;

@@ -27,5 +27,5 @@ public class UsuarioDTO {
 
     private String username;
 
-    private String idestado;
+    private Integer idEstado;
 }

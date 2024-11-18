@@ -12,46 +12,73 @@ public class EmailDto {
 
     public EmailDto(String asunto, String body, String destinatario) {
         this.asunto = asunto;
-        this.body = "<!DOCTYPE html>\n" +
-                "<html lang=\"es\">\n" +
-                "<head>\n" +
-                "    <meta charset=\"UTF-8\">\n" +
-                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                "    <title>"+asunto+"</title>\n" +
-                "    <style>\n" +
-                "        body {\n" +
-                "            font-family: Arial, sans-serif;\n" +
-                "            background-color: #f4f4f4;\n" +
-                "            margin: 0;\n" +
-                "            padding: 20px;\n" +
-                "        }\n" +
-                "        .container {\n" +
-                "            max-width: 600px;\n" +
-                "            margin: auto;\n" +
-                "            background: #fff;\n" +
-                "            padding: 20px;\n" +
-                "            border-radius: 10px;\n" +
-                "            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n" +
-                "        }\n" +
-                "        h1 {\n" +
-                "            color: #333;\n" +
-                "        }\n" +
-                "        p {\n" +
-                "            color: #666;\n" +
-                "        }\n" +
-                "        a {\n" +
-                "            color: #007bff;\n" +
-                "            text-decoration: none;\n" +
-                "        }\n" +
-                "    </style>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "    <div class=\"container\">\n" +body+
-                "        <p>Si tiene alguna pregunta o necesita ayuda, no dude en <a href=\"mailto:arrowv14570406juandavid@gmail.com\">contactarnos</a>.</p>\n" +
-                "        <p>¡Esperamos poder servirle!</p>\n" +
-                "    </div>\n" +
-                "</body>\n" +
-                "</html>\n";
+        this.body =
+                """
+                        <!DOCTYPE html>
+                        <html lang="es">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>%snull;</title>
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    color: #333;
+                                    background-color: #f9f9f9;
+                                    margin: 0;
+                                    padding: 20px;
+                                }
+                                .container {
+                                    background-color: #ffffff;
+                                    padding: 20px;
+                                    border-radius: 8px;
+                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                }
+                                .header {
+                                    background-color: #D40808;
+                                    color: white;
+                                    padding: 10px 0;
+                                    text-align: center;
+                                    border-radius: 8px;
+                                }
+                                .content {
+                                    margin-top: 20px;
+                                }
+                                .content p {
+                                    font-size: 16px;
+                                    line-height: 1.5;
+                                }
+                                .button {
+                                    background-color: #D40808;
+                                    color: white;
+                                    text-decoration: none;
+                                    padding: 10px 20px;
+                                    border-radius: 5px;
+                                    margin-top: 20px;
+                                    display: inline-block;
+                                }
+                                .footer {
+                                    font-size: 12px;
+                                    color: #777;
+                                    margin-top: 30px;
+                                    text-align: center;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="container">
+                            %s
+                             </div>
+                                <div class="footer">
+                                    <p>Gracias por confiar en nuestro servicio.</p>
+                                    <p>Atentamente,</p>
+                                    <p><strong>Equipo de Telesai</strong></p>
+                                </div>
+                            </div>
+                        </body>
+                        </html>
+                """.formatted(asunto,body);
         this.destinatario = destinatario;
     }
 }

@@ -1,4 +1,4 @@
-package com.test.proyectotelesai.infrastructure.helpers.utils;
+package com.test.proyectotelesai.infrastructure.helpers.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

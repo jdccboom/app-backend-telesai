@@ -2,10 +2,12 @@ package com.test.proyectotelesai.infrastructure.driven_adapters.repository.usuar
 
 import com.test.proyectotelesai.domain.model.usuario.UsuarioDTO;
 import com.test.proyectotelesai.domain.model.usuario.gateway.UsuarioGateway;
+import com.test.proyectotelesai.domain.model.usuario.response.InfoUsuarioCrud;
 import com.test.proyectotelesai.infrastructure.helpers.utils.AdapterOperationsReactive;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -26,7 +28,19 @@ public class UsuarioRepositoryAdapter
     }
 
     @Override
-    public Mono<UsuarioDTO> findByEmailOrUsername(String email, String username) {
-        return null;
+    public Mono<InfoUsuarioCrud> findUsuarioById(Integer id) {
+        return repository.findByUsuarioId(id);
     }
+
+    @Override
+    public Flux<UsuarioDTO> findByRol(Integer rol) {
+        return repository.findByRol(rol)
+                .map(usuarioData ->mapper.map(usuarioData, UsuarioDTO.class));
+    }
+
+    @Override
+    public Flux<InfoUsuarioCrud> findAll() {
+        return repository.getUsuarioAll();
+    }
+
 }

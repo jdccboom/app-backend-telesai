@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface BitacoraGateway {
-    Mono<BitacoraDTO> getBitacoraByIdSolicitud(Integer id);
+    Flux<BitacoraDTO> getBitacoraByIdSolicitud(Integer id, Integer idsolicitud);
     Flux<BitacoraDTO> getAllBitacoras();
     Mono<BitacoraDTO> saveBitacora(BitacoraDTO bitacora);
 }
