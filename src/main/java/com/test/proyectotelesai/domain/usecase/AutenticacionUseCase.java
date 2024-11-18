@@ -3,17 +3,17 @@ package com.test.proyectotelesai.domain.usecase;
 import com.test.proyectotelesai.domain.model.rol.RolDTO;
 import com.test.proyectotelesai.domain.model.usuario.UsuarioDTO;
 import com.test.proyectotelesai.domain.model.usuario.response.InfoUsuarioResult;
-import com.test.proyectotelesai.domain.model.usuario.resquet.LoginParams;
+import com.test.proyectotelesai.domain.model.usuario.request.LoginParams;
 import com.test.proyectotelesai.domain.model.usuario.gateway.UsuarioGateway;
 import com.test.proyectotelesai.infrastructure.helpers.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.test.proyectotelesai.infrastructure.helpers.utils.Constante.ERROR_EMAIL_NO_EXISTE;
+import static com.test.proyectotelesai.infrastructure.helpers.common.Constante.ERROR_EMAIL_NO_EXISTE;
 
 @RequiredArgsConstructor
 public class AutenticacionUseCase {
@@ -29,11 +29,11 @@ public class AutenticacionUseCase {
         return usuarioGateway.findByEmail(loginParams.email())
                 .switchIfEmpty(Mono.error(new Exception(ERROR_EMAIL_NO_EXISTE.getTexto())))
                 .flatMap(usuarioDTO -> {
-                    /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-                    if( !passwordEncoder.matches(loginDTO.password(), usuarioDTO.getPassword()) ) {
+                    if( !passwordEncoder.matches(loginParams.password(), usuarioDTO.getPassword()) ) {
                         return Mono.error(new Exception("La contraseña es incorrecta"));
-                    }*/
+                    }
 
                     return rolUseCase.getRolsByUsuario(usuarioDTO.getIdusuario())
                             .map(RolDTO::getNombreRol)
@@ -55,14 +55,5 @@ public class AutenticacionUseCase {
                                                .build());
                             });
                 });
-    }
-
-
-    public Mono<UsuarioDTO> register(LoginParams loginParams) {
-
-        return usuarioGateway.findByEmail(loginParams.email())
-                .switchIfEmpty(
-                        usuarioGateway.findByEmail(loginParams.email())
-                );
     }
 }

@@ -10,4 +10,7 @@ public interface ObservacionGateway {
     Flux<ObservacionDTO> getObservacionByIdSolictud(Integer id, Integer idsolicitud);
 
     Mono<ObservacionDTO> saveObservacion(ObservacionDTO observacion);
+
+    Mono<ObservacionDTO> getObservacionById(Integer id);
+
 }

@@ -23,7 +23,7 @@ public class ServicioRepositoryAdapter
 
     @Override
     public Mono<ServicioDTO> getServicio(Integer id) {
-        return repository.getServicioByFilter(id,"0")
+        return repository.getServicioByFilter(id,null)
                 .map(servicioData -> mapper.map(servicioData, ServicioDTO.class));
     }
 

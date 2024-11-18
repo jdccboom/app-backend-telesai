@@ -20,5 +20,10 @@ public interface RolRepository extends ReactiveCrudRepository<RolData, Integer>,
 
     Mono<RolData> findByIdRol(@Param("id") int idRol);
 
+    @Query("""
+            INSERT INTO telesai_services_db.usuariorol (idusuario, idrol)
+            VALUES (:idUsuario, :idRol)
+            """)
+    Mono<UsuarioRolData> updateUsuarioRol(@Param("idUsuario") Integer idUsuario,@Param("idRol") Integer idRol);
 
 }

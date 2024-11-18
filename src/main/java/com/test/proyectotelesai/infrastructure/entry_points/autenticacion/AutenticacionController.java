@@ -1,6 +1,6 @@
 package com.test.proyectotelesai.infrastructure.entry_points.autenticacion;
 
-import com.test.proyectotelesai.domain.model.usuario.resquet.LoginParams;
+import com.test.proyectotelesai.domain.model.usuario.request.LoginParams;
 import com.test.proyectotelesai.domain.usecase.AutenticacionUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

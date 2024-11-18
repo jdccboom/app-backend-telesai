@@ -24,7 +24,7 @@ public interface ServicioRepository extends ReactiveCrudRepository<ServicioData,
                 SELECT *
                 FROM telesai_services_db.servicio s
                 WHERE (s.idservicio = :id OR 0 = :id)
-                AND (s.nombreservicio = :nombre OR '0' = :nombre)
+                AND (s.nombreservicio = :nombre OR :nombre is null)
                 AND s.idestado != 1;
             """)
     Mono<ServicioData> getServicioByFilter(@Param("id") Integer idServicio, @Param("nombre") String nombreServicio );

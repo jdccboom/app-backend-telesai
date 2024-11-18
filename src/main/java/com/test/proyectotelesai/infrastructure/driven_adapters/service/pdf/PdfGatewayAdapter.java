@@ -10,7 +10,6 @@ import com.test.proyectotelesai.domain.model.bitacora.BitacoraDTO;
 import com.test.proyectotelesai.domain.model.evidencia.EvidenciaDTO;
 import com.test.proyectotelesai.domain.model.observacion.ObservacionDTO;
 import com.test.proyectotelesai.infrastructure.driven_adapters.repository.solicitud.InfoActaData;
-import com.test.proyectotelesai.infrastructure.driven_adapters.repository.solicitud.SolicitudResult;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -47,8 +46,9 @@ public class PdfGatewayAdapter implements PdfGetaway {
             document.add(new Paragraph(
                     "\nCliente: " + solicitudResult.getCliente() +
                             "\nUbicación: " + solicitudResult.getUbicacion() +
+                            "\nServicio: " + solicitudResult.getServicio() +
                             "\nFecha de la Solicitud: " + solicitudResult.getFechaSolicitud() +
-                            "\nServicio: " + solicitudResult.getDescripcion() +
+                            "\nDescripción: " + solicitudResult.getDescripcion() +
                             "\nOperario: " + solicitudResult.getOperario() +
                             "\nSupervisor: " + solicitudResult.getSupervisor())
                     .setFontSize(12));

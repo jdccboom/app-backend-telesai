@@ -37,4 +37,10 @@ public class ObservacionRepositoryAdapter
     public Mono<ObservacionDTO> saveObservacion(ObservacionDTO observacion) {
         return save(observacion);
     }
+
+    @Override
+    public Mono<ObservacionDTO> getObservacionById(Integer id) {
+        return repository.findByIdObservacion(id)
+                .map(observacionData -> mapper.map(observacionData, ObservacionDTO.class));
+    }
 }

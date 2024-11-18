@@ -28,7 +28,6 @@ public class ActaUseCase {
     private final ClodinaryUseCase clodinaryUseCase;
     private final MailUseCase mailUseCase;
 
-    // Método principal que coordina el flujo
     public Mono<FileParams> generarActa(Integer idSolicitud) {
         return obtenerInformacionSolicitud(idSolicitud)
                 .flatMap(solicitudResult -> {
@@ -41,7 +40,6 @@ public class ActaUseCase {
                 });
     }
 
-    // Procesa la información de la solicitud
     private Mono<FileParams> procesarSolicitud(InfoActaData infoSolicitud) {
         return obtenerObservaciones(infoSolicitud.getIdSolicitud())
                 .zipWith(obtenerBitacoras(infoSolicitud.getIdSolicitud()))
@@ -55,27 +53,22 @@ public class ActaUseCase {
                 .flatMap(fileParams -> crearEvidencia(fileParams, infoSolicitud.getIdSolicitud()));
     }
 
-    // Obtiene la información de la solicitud
     private Mono<InfoActaData> obtenerInformacionSolicitud(Integer idSolicitud) {
         return solicitudUseCase.getInfoActaData(idSolicitud);
     }
 
-    // Obtiene las observaciones relacionadas con la solicitud
     private Mono<List<ObservacionDTO>> obtenerObservaciones(Integer idSolicitud) {
         return observacionUseCase.getObservacionByIdSolictud(0, idSolicitud).collectList();
     }
 
-    // Obtiene las bitácoras relacionadas con la solicitud
     private Mono<List<BitacoraDTO>> obtenerBitacoras(Integer idSolicitud) {
         return bitacoraUseCase.getBitacoraByIdSolicitud(0, idSolicitud).collectList();
     }
 
-    // Obtiene la evidencia relacionada con la solicitud (en este caso, la firma)
     private Mono<EvidenciaDTO> obtenerEvidencia(Integer idSolicitud) {
         return evidenciaUseCase.getEvidenciaByTipo("Firma", idSolicitud);
     }
 
-    // Genera el archivo PDF con la información obtenida
     private Mono<File> generarPdf(InfoActaData infoSolicitud, List<ObservacionDTO> observaciones,
                                   List<BitacoraDTO> bitacoras, EvidenciaDTO evidenciaDTO) {
         try {
@@ -88,7 +81,6 @@ public class ActaUseCase {
         }
     }
 
-    // Guarda el archivo PDF en Cloudinary
     private Mono<FileParams> guardarEnCloudinary(File pdfFile) {
         return clodinaryUseCase.savePdf(pdfFile)
                 .map(datos -> {
@@ -100,15 +92,12 @@ public class ActaUseCase {
                             .build();
                 })
                 .doFinally(signalType -> {
-                    if (pdfFile.exists()) //noinspection SingleStatementInBlock
-                    {
-                        pdfFile.delete(); // Eliminar archivo temporal después de subirlo
-                    }
+                    if (pdfFile.exists()) //noinspection ResultOfMethodCallIgnored
+                        pdfFile.delete();
                 })
                 .onErrorMap(error -> new RuntimeException("Error al guardar el archivo en Cloudinary", error));
     }
 
-    // Crea la evidencia a partir de los datos obtenidos de Cloudinary
     private Mono<FileParams> crearEvidencia(FileParams fileParams, Integer idSolicitud) {
         return evidenciaUseCase.save(EvidenciaDTO.builder()
                         .urlEvidencia(fileParams.getUrl())
@@ -120,12 +109,10 @@ public class ActaUseCase {
                         .thenReturn(fileParams));
     }
 
-    // Actualiza el estado de la solicitud
     private Mono<SolicitudDTO> actualizarEstadoSolicitud(Integer idSolicitud) {
         return solicitudUseCase.updateEstadoSolicitud(idSolicitud, 5);
     }
 
-    // Método que envía el correo al usuario
     private Mono<Void> enviarCorreo(InfoActaData info, String url) {  // Cambiar a idUsuario
         info.setEstado("Finalizada");
         try {

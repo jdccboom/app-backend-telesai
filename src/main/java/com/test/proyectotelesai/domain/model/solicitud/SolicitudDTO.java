@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SolicitudDTO {
-    private int idSolicitud;
-    private int idCliente;
-    private int idUbicacion;
-    private int idServicio;
-    private int idOperario;
-    private int idSupervisor;
-    private int idEstado;
+    private Integer idSolicitud;
+    private Integer idCliente;
+    private Integer idUbicacion;
+    private Integer idServicio;
+    private Integer idOperario;
+    private Integer idSupervisor;
+    private Integer idEstado;
     private LocalDate fechaSolicitud;
-    private LocalDateTime fechaRevision;
+    private LocalDate fechaRevision;
     private LocalDateTime fechaValidacion;
     private String descripcion;
 }

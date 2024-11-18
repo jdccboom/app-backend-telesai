@@ -25,9 +25,14 @@ public class ServicioController {
         return ResponseEntity.ok().body(servicioUseCase.getServicioById(id));
     }
 
-    @PostMapping("/crear")
+    @PostMapping("/save")
     public ResponseEntity<Object> saveServicio(@RequestBody ServicioDTO servicio) {
         return ResponseEntity.ok().body(servicioUseCase.saveServicio(servicio));
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Object> updateServicio(@RequestBody ServicioDTO servicio) {
+        return ResponseEntity.ok().body(servicioUseCase.updateServicio(servicio));
     }
 
     @DeleteMapping("/delete/{id}")

@@ -22,5 +22,5 @@ public class ServicioData {
     private String nombreServicio;
 
     @Column( value = "idestado")
-    private String idEstado;
+    private Integer idEstado;
 }

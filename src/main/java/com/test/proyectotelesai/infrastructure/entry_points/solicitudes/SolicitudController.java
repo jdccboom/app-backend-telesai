@@ -19,6 +19,11 @@ public class SolicitudController {
 
     private final JWTUtils jwtUtils;
 
+    @GetMapping("/disponible")
+    public ResponseEntity<Object> verificarDisponibilidad5Dias() {
+        return ResponseEntity.ok().body(solicitudUseCase.verificarDisponibilidad5Dias());
+    }
+
     @GetMapping
     public ResponseEntity<Object> getAllSolicitudes(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok().body(solicitudUseCase.getSolicitudInfoByIdCliente((Integer)
@@ -27,17 +32,33 @@ public class SolicitudController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getSolicituById(@PathVariable("id") int id) {
+    public ResponseEntity<Object> getSolicituById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok().body(solicitudUseCase.getSolicitudInfoById(id));
     }
 
     @GetMapping("/acta/{id}")
-    public ResponseEntity<Object> genararActa(@PathVariable("id") int id) {
+    public ResponseEntity<Object> genararActa(@PathVariable("id") Integer id) {
         return ResponseEntity.ok().body(actaUseCase.generarActa(id));
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Object> saveServicio(@RequestBody SolicitudDTO solicitudDTO) {
-        return ResponseEntity.ok().body(solicitudUseCase.saveSolicitud(solicitudDTO));
+    public ResponseEntity<Object> crearSolicitud(@RequestHeader("Authorization") String token,@RequestBody SolicitudDTO solicitudDTO) {
+        return ResponseEntity.ok().body(solicitudUseCase.procesarSolicitud(solicitudDTO,
+                (Integer) jwtUtils
+                        .parseJwt(token.replace("Bearer ", ""))
+                                .getPayload().get("id")));
+    }
+
+    @PostMapping("/validar/{id}")
+    public ResponseEntity<Object> validarSolicitud(@RequestHeader("Authorization") String token,@PathVariable("id") Integer idSolicitud) {
+        return ResponseEntity.ok().body(solicitudUseCase.validarActa(idSolicitud,
+                (Integer)
+                        jwtUtils.parseJwt(token.replace("Bearer ", ""))
+                                .getPayload().get("id")));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> eliminarSolicitud(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok().body(solicitudUseCase.deleteSolicitud(id));
     }
 }

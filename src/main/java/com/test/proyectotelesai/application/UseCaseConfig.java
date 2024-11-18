@@ -39,13 +39,15 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public SolicitudUseCase solicitudUseCase(SolicitudGateway solicitudGateway) {
-        return new SolicitudUseCase(solicitudGateway);
+    public SolicitudUseCase solicitudUseCase(SolicitudGateway solicitudGateway,
+                                             RolUseCase rolUseCase,
+                                             UsuarioUseCase usuarioUseCase) {
+        return new SolicitudUseCase(solicitudGateway,rolUseCase,usuarioUseCase);
     }
 
     @Bean
-    public ObservacionUseCase observacionUseCase(ObservacionGateway observacionGateway) {
-        return new ObservacionUseCase(observacionGateway);
+    public ObservacionUseCase observacionUseCase(ObservacionGateway observacionGateway,SolicitudUseCase solicitudUseCase) {
+        return new ObservacionUseCase(observacionGateway,solicitudUseCase);
     }
 
     @Bean
@@ -72,4 +74,10 @@ public class UseCaseConfig {
     public BitacoraUseCase bitacoraUseCase(BitacoraGateway bitacoraGateway){
         return new BitacoraUseCase(bitacoraGateway);
     }
+
+    @Bean
+    public UsuarioUseCase usuarioUseCase(UsuarioGateway usuarioGateway, RolUseCase rolUseCase){
+        return new UsuarioUseCase(usuarioGateway,rolUseCase);
+    }
+
 }

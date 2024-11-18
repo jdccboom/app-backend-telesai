@@ -96,10 +96,10 @@ public class FiltroToken implements WebFilter {
 
         try {
             // Validación de permisos según la URI y el rol del token
-            if (requestURI.startsWith("/api/v1")) {
-                error = validarRol(List.of("Cliente","Supervisor","Operario"));
-            } else if (requestURI.startsWith("/api/moderator")) {
-                error = validarRol( List.of("Admin"));
+            if (requestURI.startsWith("/api/v1/moderator")) {
+                error = validarRol(List.of("Admin"));
+            }else if (requestURI.startsWith("/api/v1")) {
+                    error = validarRol(List.of("Cliente","Supervisor","Operario","Admin"));
             } else {
                 error = false;
             }

@@ -32,4 +32,9 @@ public class RolRepositoryAdapter
         return repository.findByIdRol(id)
                 .map(rolData -> mapper.map(rolData, RolDTO.class));
     }
+
+    @Override
+    public Mono<UsuarioRolData> updateUsuarioRol(Integer idUsuario, Integer idRol) {
+        return repository.updateUsuarioRol(idUsuario,idRol);
+    }
 }

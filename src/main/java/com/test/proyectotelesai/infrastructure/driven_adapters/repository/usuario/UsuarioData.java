@@ -36,6 +36,5 @@ public class UsuarioData {
     private String username;
 
     @Column( value = "idestado")
-    private String idestado;
-
+    private Integer idEstado;
 }

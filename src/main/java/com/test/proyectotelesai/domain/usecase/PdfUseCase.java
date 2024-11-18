@@ -4,11 +4,8 @@ import com.test.proyectotelesai.domain.model.bitacora.BitacoraDTO;
 import com.test.proyectotelesai.domain.model.evidencia.EvidenciaDTO;
 import com.test.proyectotelesai.domain.model.observacion.ObservacionDTO;
 import com.test.proyectotelesai.infrastructure.driven_adapters.repository.solicitud.InfoActaData;
-import com.test.proyectotelesai.infrastructure.driven_adapters.repository.solicitud.SolicitudResult;
 import com.test.proyectotelesai.infrastructure.driven_adapters.service.pdf.PdfGetaway;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import reactor.core.publisher.Mono;
 
 import java.io.File;
 import java.io.IOException;
