@@ -29,7 +29,7 @@ public class EvidenciaController {
 
     @GetMapping("/{id}")
     public Mono<ResponseEntity<Object>> getEvidencia(@PathVariable("id") Integer id) {
-        return evidenciaUseCase.getEvidenciaByTipo("",id)
+        return evidenciaUseCase.getEvidenciaByTipo(null,id)
                 .map(result -> ResponseEntity.ok().body(new MensajeDTO<>(false, result)));
     }
 
